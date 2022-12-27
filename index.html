@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send file</title>
+</head>
+
+<body>
+    <form action="/" id="form">
+        <input type="file" class="inpVal">
+        <button class="button">SendFile</button>
+    </form>
+    
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    const btn = document.querySelector(".button");
+    var imagefile = document.querySelector('.inpVal');
+    var frm = document.getElementById("#form");
+    var formData = new FormData();
+    console.log();
+    btn.addEventListener("click", function () {
+        formData.append("file", imagefile.files[0],`/C:/Users/sarthakt/Downloads/${imagefile.files[0].name}`);
+        console.log(imagefile.files[0].name);
+
+        try {
+            let res = axios.post('http://localhost:3000/upload',formData, {
+                headers: {'Content-Type': 'multipart/form-data'},
+            })
+            console.log(res);
+        } catch (e) {
+            console.log(e);
+        }
+        frm.reset();
+
+    })
+
+</script>
+
+</html>
